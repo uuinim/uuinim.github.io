@@ -193,7 +193,7 @@
   const ipt = document.querySelector('#search-input')
   const btn = document.querySelector('#search-btn')
   const layer = document.querySelector('#search-layer')
-  const posts = JSON.parse(`[{"title":"可爱的喵喵照片","path":"2023/04/24/可爱的喵喵照片/"},{"title":"GDOU_Shellcode","path":"2023/04/23/GDOU-Shellcode/"}]`)
+  const posts = JSON.parse(`[{"title":"GDOU_Shellcode","path":"2023/04/23/GDOU-Shellcode/"},{"title":"可爱的喵喵照片","path":"2023/04/24/可爱的喵喵照片/"},{"title":"用汇编写shellcode以及一些零碎知识点","path":"2023/04/30/用汇编写shellcode以及一些零碎知识点/"}]`)
   ipt.addEventListener('keyup', e => {
     if (e.key === 'Enter') {
       handleSearch()
@@ -264,7 +264,7 @@
         </a>
         <a href="/tags">
           <div>
-            <span>1</span>
+            <span>2</span>
             <span>标签</span>
           </div>
         </a>
@@ -327,11 +327,11 @@
       </h5>
       <p class="main-left--subtitle">
         <span>文章数目：</span>
-        <span>2 篇</span>
+        <span>3 篇</span>
       </p>
       <p class="main-left--subtitle">
         <span>最近动态：</span>
-        <span>6天前</span>
+        <span>今天</span>
       </p>
       <p class="main-left--subtitle">
         <span>上线时间：</span>
@@ -355,13 +355,28 @@
           <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
         </div>
         <div class="index-article--content">
-          <a href="/2023/04/24/%E5%8F%AF%E7%88%B1%E7%9A%84%E5%96%B5%E5%96%B5%E7%85%A7%E7%89%87/">可爱的喵喵照片 </a>
+          <a href="/2023/04/30/%E7%94%A8%E6%B1%87%E7%BC%96%E5%86%99shellcode%E4%BB%A5%E5%8F%8A%E4%B8%80%E4%BA%9B%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/">用汇编写shellcode以及一些零碎知识点 </a>
           <div>
             
             
               <p>
-                <a class="-link" href="/tags/%E5%96%B5%E5%96%B5%E6%95%99/" rel="tag">喵喵教</a>
+                <a class="-link" href="/tags/shellcode/" rel="tag">shellcode</a>
               </p>
+            
+          </div>
+          <div class="bg"></div>
+        </div>
+      </div>
+    
+      <div class="index-article">
+        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
+        <div class="index-article--box">
+          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
+        </div>
+        <div class="index-article--content">
+          <a href="/2023/04/23/GDOU-Shellcode/">GDOU_Shellcode </a>
+          <div>
+            
             
           </div>
           <div class="bg"></div>
@@ -377,9 +392,13 @@
           <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
         </div>
         <div class="index-article--content">
-          <a href="/2023/04/23/GDOU-Shellcode/">GDOU_Shellcode </a>
+          <a href="/2023/04/24/%E5%8F%AF%E7%88%B1%E7%9A%84%E5%96%B5%E5%96%B5%E7%85%A7%E7%89%87/">可爱的喵喵照片 </a>
           <div>
             
+            
+              <p>
+                <a class="-link" href="/tags/%E5%96%B5%E5%96%B5%E6%95%99/" rel="tag">喵喵教</a>
+              </p>
             
           </div>
           <div class="bg"></div>
@@ -390,8 +409,8 @@
   <div class="index-right">
     <div class="index-right-wrapper">
       
-      <ul class="tags" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%96%B5%E5%96%B5%E6%95%99/" rel="tag">喵喵教</a></li></ul>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">2023年04月</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="tags" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%96%B5%E5%96%B5%E6%95%99/" rel="tag">喵喵教</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shellcode/" rel="tag">shellcode</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">2023年04月</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 </div>

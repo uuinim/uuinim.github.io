@@ -346,48 +346,101 @@
 </div></div>
       <div id="main-container" class="main-container">
 
-    <div class="archive">
-        <h1 class="archive-title">我の博客归档记录</h1>
-        <ul class="archive-list">
+<div class="index">
+  <div class="index-left">
+    
+      <div class="index-article">
+        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
+        <div class="index-article--box">
+          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
+        </div>
+        <div class="index-article--content">
+          <a href="/2023/04/30/%E7%94%A8%E6%B1%87%E7%BC%96%E5%86%99shellcode%E4%BB%A5%E5%8F%8A%E4%B8%80%E4%BA%9B%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/">用汇编写shellcode以及一些零碎知识点 </a>
+          <div>
             
-                <li class="archive-list__year">
-                    <h2>2023年</h2>
-                    <ul>
-                        
-                            <li class="archive-list__month">
-                                <h3>第04の月</h3>
-                                <ul>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/23/GDOU-Shellcode/">GDOU_Shellcode</a>
-                                                <span>04月23日</span>
-                                            </div>
-                                        </li>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/24/可爱的喵喵照片/">可爱的喵喵照片</a>
-                                                <span>04月24日</span>
-                                            </div>
-                                        </li>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/30/用汇编写shellcode以及一些零碎知识点/">用汇编写shellcode以及一些零碎知识点</a>
-                                                <span>04月30日</span>
-                                            </div>
-                                        </li>
-                                    
-                                </ul>
-                            </li>
-                        
-                    </ul>
-                </li>
             
-        </ul>
+              <p>
+                <a class="-link" href="/tags/shellcode/" rel="tag">shellcode</a>
+              </p>
+            
+          </div>
+          <div class="bg"></div>
+        </div>
+      </div>
+    
+  </div>
+  <div class="index-center">
+    
+  </div>
+  <div class="index-right">
+    <div class="index-right-wrapper">
+      
+      <ul class="tags" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%96%B5%E5%96%B5%E6%95%99/" rel="tag">喵喵教</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shellcode/" rel="tag">shellcode</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">2023年04月</a><span class="archive-list-count">3</span></li></ul>
     </div>
+  </div>
 </div>
+
+
+<script>
+  var allImgBoxs = document.querySelectorAll('.index-article--box');
+  var windowHeight = window.innerHeight;
+  var boxs = Array.from(allImgBoxs);
+  var timer = null;
+  boxs.forEach((box, idx) => {
+    if (!window.loadImageSet || !window.loadImageSet.includes(idx)) {
+      box.classList.add('img-loading');
+    } else {
+      const imgDom = box.querySelector('img');
+      imgDom.src = imgDom.dataset.cover;
+    }
+  });
+
+  function scrollFn() {
+    if (timer) {
+      return;
+    }
+    timer = setTimeout(() => {
+      loadImage();
+      timer = null;
+    }, 100)
+  }
+
+  if (!window.loadedImage) {
+    document.addEventListener('scroll', scrollFn);
+  }
+
+  function loadImage() {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop;
+    if (boxs.every(box => box.loadedImage)) {
+      document.removeEventListener('scroll', scrollFn);
+      window.loadedImage = 1;
+      return;
+    }
+    boxs.forEach((box, idx) => {
+      if (box.loadedImage) {
+        return;
+      }
+      if (box.getBoundingClientRect().top < windowHeight) {
+        const imgDom = box.querySelector('img');
+        imgDom.src = imgDom.dataset.cover;
+        imgDom.onload = () => {
+          box.classList.remove('img-loading')
+          box.loadedImage = true;
+          if (window.loadImageSet) {
+            window.loadImageSet.push(idx);
+          } else {
+            window.loadImageSet = [];
+            window.loadImageSet.push(idx);
+          }
+        }
+      }
+    });
+  }
+
+  window.loadImageFn = loadImage;
+</script> </div>
       <div class="main-right-wrapper"><div class="main-right">
   <div class="main-right--board">
     <div class="main-right--title">

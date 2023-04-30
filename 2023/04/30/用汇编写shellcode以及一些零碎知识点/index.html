@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>我的技术与生活——小站首页 | Hexo</title>
+  <title>我的技术与生活——用汇编写shellcode以及一些零碎知识点 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/public.css" />
@@ -16,7 +16,7 @@
 
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `我的技术与生活——小站首页`
+    document.title = `我的技术与生活——用汇编写shellcode以及一些零碎知识点`
   </script>
 <meta name="generator" content="Hexo 6.3.0"></head>
 
@@ -346,47 +346,152 @@
 </div></div>
       <div id="main-container" class="main-container">
 
-    <div class="archive">
-        <h1 class="archive-title">我の博客归档记录</h1>
-        <ul class="archive-list">
+
+  <style>
+pre::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  background-color:#F5F5F5;
+}
+/*定义滚动条轨道
+内阴影+圆角*/
+pre::-webkit-scrollbar-track {
+  background-color:#F5F5F5;
+}
+/*定义滑块
+内阴影+圆角*/
+pre::-webkit-scrollbar-thumb {
+  background-color: rgb(69, 83, 100);
+}
+
+pre:active {
+  background-color: rgb(81, 95, 116);
+}
+</style>
+
+<div class="article-container">
+  <div class="article">
+    <h1 class="article-title">用汇编写shellcode以及一些零碎知识点</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          
+          <div class="article-info--categories">
+            <span>分类：</span>
             
-                <li class="archive-list__year">
-                    <h2>2023年</h2>
-                    <ul>
-                        
-                            <li class="archive-list__month">
-                                <h3>第04の月</h3>
-                                <ul>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/23/GDOU-Shellcode/">GDOU_Shellcode</a>
-                                                <span>04月23日</span>
-                                            </div>
-                                        </li>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/24/可爱的喵喵照片/">可爱的喵喵照片</a>
-                                                <span>04月24日</span>
-                                            </div>
-                                        </li>
-                                    
-                                        <li class="archive-list__post">
-                                            <div>
-                                                <a href="/2023/04/30/用汇编写shellcode以及一些零碎知识点/">用汇编写shellcode以及一些零碎知识点</a>
-                                                <span>04月30日</span>
-                                            </div>
-                                        </li>
-                                    
-                                </ul>
-                            </li>
-                        
-                    </ul>
-                </li>
-            
-        </ul>
+          </div>
+          
+          
+          <div class="article-info--tags">
+            <span>标签：</span>
+            <a class="tag-link" href="/tags/shellcode/" rel="tag">shellcode</a>
+          </div>
+          
+          <p class="article-info--date">日期：2023-04-30 22:55:35</p>
+        </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
+      </div>
     </div>
+    <article class="article-content">
+      <h1 id="用汇编写shell以及一些零碎知识点"><a href="#用汇编写shell以及一些零碎知识点" class="headerlink" title="用汇编写shell以及一些零碎知识点"></a>用汇编写shell以及一些零碎知识点</h1><h2 id="一：用汇编写shell"><a href="#一：用汇编写shell" class="headerlink" title="一：用汇编写shell"></a>一：用汇编写shell</h2><h3 id="①捏造execve②将第一个参数存入”-x2F-bin-x2F-sh”③将第二个、第三个参数存入0"><a href="#①捏造execve②将第一个参数存入”-x2F-bin-x2F-sh”③将第二个、第三个参数存入0" class="headerlink" title="①捏造execve②将第一个参数存入”&#x2F;bin&#x2F;sh”③将第二个、第三个参数存入0"></a>①捏造execve②将第一个参数存入”&#x2F;bin&#x2F;sh”③将第二个、第三个参数存入0</h3><h3 id="xor-rdi-rdi"><a href="#xor-rdi-rdi" class="headerlink" title="xor rdi, rdi"></a>xor rdi, rdi</h3><h3 id="push-rdi"><a href="#push-rdi" class="headerlink" title="push rdi"></a>push rdi</h3><p>此时的rdi是0，要把这个0压入栈顶，当下</p>
+<p>面把0x68732f2 f6e69622f压入栈顶之后，这个o就起到了截断字符串的作用(用来声明， execve的第一 -个参数字符串到哪结束)</p>
+<h3 id="mov-rdi-0x68732f2f6e69622f"><a href="#mov-rdi-0x68732f2f6e69622f" class="headerlink" title="mov  rdi, 0x68732f2f6e69622f"></a>mov  rdi, 0x68732f2f6e69622f</h3><p>现在rdi的值是</p>
+<p>0x68732f2f6e69622f</p>
+<h3 id="push-rdi-1"><a href="#push-rdi-1" class="headerlink" title="push rdi"></a>push rdi</h3><p>此时参数0x68732f2f6e69622f</p>
+<p>(即&#x2F;bin&#x2F; sh就存在了栈顶的内存单元中</p>
+<h3 id="lea-rdi-rsp"><a href="#lea-rdi-rsp" class="headerlink" title="lea rdi, [ rsp ]"></a>lea rdi, [ rsp ]</h3><p>等同于mov rdi, rsp此时是把</p>
+<p>栈顶的地址**<u>* (**- -定要注意，是栈顶的地址，就是rsp本身的值(rsp本身就是个地址) ***</u>, 赋值给rdi,也就是说此时rd i的值就是参数的地址</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/p98eNVK"><img src="https://s1.ax1x.com/2023/04/30/p98eNVK.png" alt="p98eNVK.png"></a></p>
+<p>试着运行了一下：（</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/p98eZD0"><img src="https://s1.ax1x.com/2023/04/30/p98eZD0.png" alt="p98eZD0.png"></a></p>
+<h3 id="二：做的题：-HNCTF-2022-Week1-ret2shellcode"><a href="#二：做的题：-HNCTF-2022-Week1-ret2shellcode" class="headerlink" title="二：做的题：[HNCTF 2022 Week1]ret2shellcode"></a>二：做的题：[HNCTF 2022 Week1]ret2shellcode</h3><p><a target="_blank" rel="noopener" href="https://imgse.com/i/p98Za1s"><img src="https://s1.ax1x.com/2023/04/30/p98Za1s.png" alt="p98Za1s.png"></a></p>
+<p>（复习一下））</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/p98ekgs"><img src="https://s1.ax1x.com/2023/04/30/p98ekgs.png" alt="p98ekgs.png"></a></p>
+<p>这一道题，经过分析发现并没有发现 bin&#x2F;sh 文件的地址，但在主函数 中存在可以读写的段，可以填</p>
+<p>本题知识点：asm转换和ljust</p>
+<p>①小端模式</p>
+<p>​	数据的<strong>低位</strong>放在<strong>低地址</strong>空间，数据的<strong>高位</strong>放在<strong>高地址</strong>空间<br>​	简记：<strong>小端就是低位对应低地址，高位对应高地址</strong></p>
+<p>exp重点:（剩下的是基本exp模板）</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/p98ZTAO"><img src="https://s1.ax1x.com/2023/04/30/p98ZTAO.png" alt="p98ZTAO.png"></a></p>
+<p>总结一下：asm转shellcode挺不错）</p>
+
+    </article>
+    
+    <div class="read-nums">
+      <!-- id 将作为查询条件 -->
+      <span id="2023/04/30/用汇编写shellcode以及一些零碎知识点/" class="leancloud_visitors" data-flag-title="Your Article Title">
+        <em class="post-meta-item-text">浏览量</em>
+        <i class="leancloud-visitors-count"></i>
+      </span>
+    </div>
+    <div class="comments-intro">
+      <h2>评论区</h2>
+      <p>欢迎你留下宝贵的意见，昵称输入QQ号会显示QQ头像哦~</p>
+    </div>
+    <div id="vcomments" class="vcomments"></div>
+    
+  </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E6%B1%87%E7%BC%96%E5%86%99shell%E4%BB%A5%E5%8F%8A%E4%B8%80%E4%BA%9B%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.</span> <span class="toc-text">用汇编写shell以及一些零碎知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%EF%BC%9A%E7%94%A8%E6%B1%87%E7%BC%96%E5%86%99shell"><span class="toc-number">1.1.</span> <span class="toc-text">一：用汇编写shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A0%E6%8D%8F%E9%80%A0execve%E2%91%A1%E5%B0%86%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E5%AD%98%E5%85%A5%E2%80%9D-x2F-bin-x2F-sh%E2%80%9D%E2%91%A2%E5%B0%86%E7%AC%AC%E4%BA%8C%E4%B8%AA%E3%80%81%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0%E5%AD%98%E5%85%A50"><span class="toc-number">1.1.1.</span> <span class="toc-text">①捏造execve②将第一个参数存入”&#x2F;bin&#x2F;sh”③将第二个、第三个参数存入0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xor-rdi-rdi"><span class="toc-number">1.1.2.</span> <span class="toc-text">xor rdi, rdi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#push-rdi"><span class="toc-number">1.1.3.</span> <span class="toc-text">push rdi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mov-rdi-0x68732f2f6e69622f"><span class="toc-number">1.1.4.</span> <span class="toc-text">mov  rdi, 0x68732f2f6e69622f</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#push-rdi-1"><span class="toc-number">1.1.5.</span> <span class="toc-text">push rdi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lea-rdi-rsp"><span class="toc-number">1.1.6.</span> <span class="toc-text">lea rdi, [ rsp ]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%9A%E5%81%9A%E7%9A%84%E9%A2%98%EF%BC%9A-HNCTF-2022-Week1-ret2shellcode"><span class="toc-number">1.1.7.</span> <span class="toc-text">二：做的题：[HNCTF 2022 Week1]ret2shellcode</span></a></li></ol></li></ol></li></ol>
+      </div>
+      
+        <div class="catelogue catelogue-2">
+           
+          
+            <p>
+              <span>下一篇</span>
+              <a href="/2023/04/24/可爱的喵喵照片/">可爱的喵喵照片</a>
+            </p>
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<script src="http://cdn.yangxiang.cc/prism.js"></script>
+
+<script>
+  // var定义，避免pjax重新进来造成的重复声明错误
+  var config = JSON.parse('{"enable":true,"appId":"Pf8zCXGEH1qsprnWfikVVujL-gzGzoHsz","appKey":"qOqoiUHhH1TGtLRUYURkLRQX","placeholder":"请留下你宝贵的意见吧~","meta":["nick"],"recordIP":true,"visitor":true,"enableQQ":true}')
+  new Valine({
+    el: '#vcomments',
+    appId: config.appId,
+    appKey: config.appKey,
+    placeholder: config.placeholder,
+    meta: config.meta,
+    recordIP: config.recordIP,
+    visitor: config.visitor,
+    enableQQ: config.enableQQ,
+    path: '2023/04/30/用汇编写shellcode以及一些零碎知识点/'
+  })
+</script>
+
+
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const links = tocs ? tocs.querySelectorAll('a') : []
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        const href = decodeURIComponent(e.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
+
 </div>
       <div class="main-right-wrapper"><div class="main-right">
   <div class="main-right--board">
